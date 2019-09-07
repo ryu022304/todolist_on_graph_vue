@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Header />
-    <List />
+    <InputForm />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import List from './components/List.vue'
+import InputForm from './components/InputForm.vue'
 
 export default {
   name: 'app',
   components: {
     Header,
-    List
+    InputForm
   }
 }
 </script>

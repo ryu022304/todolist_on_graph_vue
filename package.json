@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ryu022304/todolist_on_graph_vue#readme",
   "devDependencies": {
+    "axios": "^0.19.0",
     "bootstrap-vue": "^2.0.0",
     "css-loader": "^3.2.0",
     "style-loader": "^1.0.0",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "npm-check-updates": "^3.1.21",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vuex": "^3.1.1"
   }
 }

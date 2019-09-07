@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>TODO Graph on Graph with Vue</h1>
+    <h1>TODO List on Graph ver Vue</h1>
   </div>
 </template>
 
