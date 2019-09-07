@@ -3,7 +3,7 @@
         <b-input-group prepend="TODO" class="mt-3">
             <b-form-input v-model="text" placeholder="Enter TODO"></b-form-input>
             <b-input-group-append>
-                <b-button variant="info">Submit</b-button>
+                <b-button variant="info" v-on:click="addList">Submit</b-button>
             </b-input-group-append>
         </b-input-group>
     </div>
@@ -15,6 +15,14 @@ export default {
       return {
         text: ''
       }
+    },
+    methods: {
+        addList(){
+            this.$store.commit('setTodos', {
+                title: this.text
+            });
+            console.log(this.$store.getters.getTodos);
+        }
     }
 }
 </script>
