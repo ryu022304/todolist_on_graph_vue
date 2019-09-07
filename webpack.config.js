@@ -23,6 +23,11 @@ module.exports = {
       }
     ]
   },
+  devServer: { 
+    contentBase: 'dist',
+    inline: true,
+    hot: true
+  },
   resolve: {
     alias: { 'vue$': 'vue/dist/vue.esm.js' },
     extensions: [ '.js', '.vue', '.json' ],

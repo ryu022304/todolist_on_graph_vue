@@ -1,27 +1,34 @@
 {
   "name": "todo_list_on_graph_vue",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/ryu022304/todolist_on_graph_vue.git",
-  "author": "ryu022304 <ryu022304@gmail.com>",
-  "license": "MIT",
+  "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start": "webpack-dev-server",
-    "watch": "webpack --watch --mode development"
+    "start": "webpack-dev-server --hot",
+    "watch": "webpack --watch"
   },
-  "dependencies": {
-    "vue": "^2.6.10",
-    "webpack": "^4.39.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryu022304/todolist_on_graph_vue.git"
   },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryu022304/todolist_on_graph_vue/issues"
+  },
+  "homepage": "https://github.com/ryu022304/todolist_on_graph_vue#readme",
   "devDependencies": {
-    "bootstrap-vue": "^2.0.0-rc.28",
+    "bootstrap-vue": "^2.0.0",
     "css-loader": "^3.2.0",
     "style-loader": "^1.0.0",
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10",
-    "webpack-cli": "^3.3.7",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "npm-check-updates": "^3.1.21",
+    "vue": "^2.6.10"
   }
 }
