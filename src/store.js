@@ -9,10 +9,12 @@ export default new Vuex.Store({
         count: 0
     },
     getters: {
+        // TODOリスト一覧の取得
         getTodos(state){ return state.todos }
     },
     mutations: {
-        setTodos(state, payload){
+        // TODOリストの追加
+        setTodo(state, payload){
             state.todos.push(
             {
                 id: state.count, 
@@ -21,6 +23,12 @@ export default new Vuex.Store({
                 ypos: 0
             });
             state.count++;
+        },
+        // TODOリストの削除
+        removeTodo(state, payload){
+            state.todos = state.todos.filter(function(v){
+                return v.id != payload.id
+            });
         }
     }
 })

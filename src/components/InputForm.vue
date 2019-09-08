@@ -17,11 +17,12 @@ export default {
       }
     },
     methods: {
+        // リストへの追加呼び出し
         addList(){
-            this.$store.commit('setTodos', {
+            this.$store.commit('setTodo', {
                 title: this.text
             });
-            console.log(this.$store.getters.getTodos);
+            this.text = '';
         }
     }
 }

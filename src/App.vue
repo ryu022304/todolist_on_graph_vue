@@ -2,18 +2,21 @@
   <div id="app">
     <Header />
     <InputForm />
+    <List />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import InputForm from './components/InputForm.vue'
+import Header from './components/Header'
+import InputForm from './components/InputForm'
+import List from './components/List'
 
 export default {
   name: 'app',
   components: {
     Header,
-    InputForm
+    InputForm,
+    List
   }
 }
 </script>
