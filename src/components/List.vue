@@ -45,9 +45,6 @@ export default {
             });
             this.text = '';
         },
-        tmpLog: function(){
-            console.log("test");
-        },
         // TODOリストの削除呼び出し
         remove: function(listId){
             this.$store.commit('removeTodo', {
@@ -58,6 +55,9 @@ export default {
         edit: function(listId){
             // TODO: 編集する処理
             console.log(listId);
+        },
+        tmpLog: function(){
+            console.log("test");
         }
     }
 }
