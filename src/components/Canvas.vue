@@ -1,10 +1,23 @@
 <template>
     <b-card-group deck>
         <b-card header="Graph Area" id="graph">
-            <v-stage :config="configKonva" ref="stage">
-                <v-layer ref="layer">
+            <v-stage :config="configKonva"
+                    ref="stage"
+                    @dragstart="handleDragstart"
+                    @dragend="handleDragend"
+            >
+                <v-layer ref="axisLayer">
                     <v-shape :config="configAxisLine"></v-shape>
-                    <v-text :config="configText"></v-text>
+                </v-layer>
+                <v-layer ref="todoLayer" v-for="todo in todoList" v-bind:key="todo.id">
+                    <v-text :config="{
+                        text: todo.title,
+                        x: todo.xpos+width/2,
+                        y: todo.ypos+height/2,
+                        fontSize: 24,
+                        draggable: true,
+                        fill: 'black'
+                    }"></v-text>
                 </v-layer>
             </v-stage>
         </b-card>
@@ -20,6 +33,8 @@ const height = 400;
 export default {
     data() {
         return {
+            width: width,
+            height: height,
             configKonva: {
                 width: width,
                 height: height
@@ -35,14 +50,26 @@ export default {
                     context.lineTo(width/2, height*0.9);
                     context.stroke();
                 }
-            },
-            configText: {
-                text: 'テスト',
-                x: width/2,
-                y: height/2,
-                fontSize: 24,
-                draggable: true
             }
+        }
+    },
+    computed: {
+        // 一覧の取得呼び出し
+        todoList: function(){
+            return this.$store.getters.getTodos;
+        }
+    },
+    methods: {
+        handleDragstart(e){
+            e.target.attrs.fontSize = 30;
+            e.target.attrs.fill = 'green';
+        },
+        handleDragend(e){
+            e.target.attrs.fontSize = 24;
+            e.target.attrs.fill = 'black';
+            // 再描画
+            const stage = this.$refs.stage.getNode();
+            stage.draw();
         }
     }
 };
