@@ -5,25 +5,18 @@
                     ref="stage"
                     @dragstart="handleDragstart"
                     @dragend="handleDragend"
-                    @mousemove="handleMouseMove"
             >
-                <v-layer ref="layer">
+                <v-layer ref="axisLayer">
                     <v-shape :config="configAxisLine"></v-shape>
-                    <v-rect :config="{
-                        x: this.width/2,
-                        y: this.height/2,
-                        width: 80,
-                        height: 30,
-                        fill: 'white',
-                        stroke: 'black',
-                        draggable: true
-                    }"></v-rect>
+                </v-layer>
+                <v-layer ref="todoLayer" v-for="todo in todoList" v-bind:key="todo.id">
                     <v-text :config="{
-                        text: 'テスト',
-                        x: this.recWidth,
-                        y: this.recHeight,
+                        text: todo.title,
+                        x: todo.xpos+width/2,
+                        y: todo.ypos+height/2,
                         fontSize: 24,
-                        draggable: true
+                        draggable: true,
+                        fill: 'black'
                     }"></v-text>
                 </v-layer>
             </v-stage>
@@ -42,9 +35,6 @@ export default {
         return {
             width: width,
             height: height,
-            isDragging: false,
-            recWidth: width/2,
-            recHeight: height/2,
             configKonva: {
                 width: width,
                 height: height
@@ -63,17 +53,23 @@ export default {
             }
         }
     },
+    computed: {
+        // 一覧の取得呼び出し
+        todoList: function(){
+            return this.$store.getters.getTodos;
+        }
+    },
     methods: {
         handleDragstart(e){
-            console.log('start')
+            e.target.attrs.fontSize = 30;
+            e.target.attrs.fill = 'green';
         },
         handleDragend(e){
-            console.log('end')
-        },
-        handleMouseMove(e) {
-            const mousePos = this.$refs.stage.getStage().getPointerPosition();
-            const x = mousePos.x - this.width/2;
-            const y = mousePos.y - this.height/2;
+            e.target.attrs.fontSize = 24;
+            e.target.attrs.fill = 'black';
+            // 再描画
+            const stage = this.$refs.stage.getNode();
+            stage.draw();
         }
     }
 };
