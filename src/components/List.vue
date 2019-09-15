@@ -68,9 +68,41 @@ export default {
         },
         // 軸名の追加呼び出し
         addAxisLavel(label){
+            let x = 0
+            let y = 0
+            let xPer = 1
+            let yPer = 1
+            if(label=='px'){
+                x = 0
+                y = -20
+                xPer = 0.85
+                yPer = 0.5
+            }
+            else if(label=="mx"){
+                x = -10
+                y = -20
+                xPer = 0.1
+                yPer = 0.5
+            }
+            else if(label=="py"){
+                x = 5
+                y = 0
+                xPer = 0.5
+                yPer = 0.1
+            }
+            else if(label=="my"){
+                x = 5
+                y = 0
+                xPer = 0.5
+                yPer = 0.85
+            }
             this.$store.commit('setAxises', {
                 label: label,
-                name: this.axis
+                name: this.axis,
+                xOffset: x,
+                yOffset: y,
+                xPercent: xPer,
+                yPercent: yPer
             });
             this.axis = '';
         },

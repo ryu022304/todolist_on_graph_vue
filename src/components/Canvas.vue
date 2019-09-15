@@ -9,6 +9,16 @@
                 <v-layer ref="axisLayer">
                     <v-shape :config="configAxisLine"></v-shape>
                 </v-layer>
+                <v-layer ref="axisLabelLayer" v-for="axis in axisList" v-bind:key="axis.label">
+                    <v-text :config="{
+                        text: axis.name,
+                        x: axis.xOffset+width*axis.xPercent,
+                        y: axis.yOffset+height*axis.yPercent,
+                        fontSize: 15,
+                        draggable: false,
+                        fill: 'red'
+                    }"></v-text>
+                </v-layer>
                 <v-layer ref="todoLayer" v-for="todo in todoList" v-bind:key="todo.id">
                     <v-text :config="{
                         text: todo.title,
@@ -54,9 +64,13 @@ export default {
         }
     },
     computed: {
-        // 一覧の取得呼び出し
+        // TODO一覧の取得呼び出し
         todoList: function(){
             return this.$store.getters.getTodos;
+        },
+        // 軸名一覧の取得呼び出し
+        axisList: function(){
+            return this.$store.getters.getAxises;
         }
     },
     methods: {

@@ -7,12 +7,7 @@ export default new Vuex.Store({
     state: {
         todos: [],
         count: 0,
-        axises: {
-            px: '',
-            mx: '',
-            py: '',
-            my: ''
-        }
+        axises: []
     },
     getters: {
         // TODOリスト一覧の取得
@@ -40,7 +35,10 @@ export default new Vuex.Store({
         },
         // 軸の設定
         setAxises(state, payload){
-            state.axises[payload.label] = payload.name
+            state.axises = state.axises.filter(function(v){
+                return v.label != payload.label
+            });
+            state.axises.push(payload);
         }
     }
 })
