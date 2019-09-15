@@ -6,11 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         todos: [],
-        count: 0
+        count: 0,
+        axises: {
+            px: '',
+            mx: '',
+            py: '',
+            my: ''
+        }
     },
     getters: {
         // TODOリスト一覧の取得
-        getTodos(state){ return state.todos }
+        getTodos(state){ return state.todos },
+        // 軸の取得
+        getAxises(state){ return state.axises }
     },
     mutations: {
         // TODOリストの追加
@@ -29,6 +37,10 @@ export default new Vuex.Store({
             state.todos = state.todos.filter(function(v){
                 return v.id != payload.id
             });
+        },
+        // 軸の設定
+        setAxises(state, payload){
+            state.axises[payload.label] = payload.name
         }
     }
 })
