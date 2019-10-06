@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueIdb from './idb'
 
 Vue.use(Vuex)
 
@@ -7,13 +8,15 @@ export default new Vuex.Store({
     state: {
         todos: [],
         count: 0,
-        axises: []
+        axises: [],
+        hydrated: false
     },
     getters: {
         // TODOリスト一覧の取得
         getTodos(state){ return state.todos },
         // 軸の取得
-        getAxises(state){ return state.axises }
+        getAxises(state){ return state.axises },
+        hydrated: state => state.hydrated
     },
     mutations: {
         // TODOリストの追加
@@ -39,6 +42,10 @@ export default new Vuex.Store({
                 return v.label != payload.label
             });
             state.axises.push(payload);
-        }
-    }
+        },
+        'DELETE_INDEXED_DB'(){}
+    },
+    modules: VueIdb.modules,
+    plugins: [ VueIdb.plugin ],
+    strict: true
 })
