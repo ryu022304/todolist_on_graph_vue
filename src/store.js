@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+var ls = new SecureLS({ isCompression: false });
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
         todos: [],
         count: 0,
-        axises: []
+        axises: [],
     },
     getters: {
         // TODOリスト一覧の取得
@@ -33,6 +35,12 @@ export default new Vuex.Store({
                 return v.id != payload.id
             });
         },
+        // TODOリストの更新
+        updateTodo(state, payload){
+            const index = state.todos.findIndex(item=>item.id==payload.id);
+            state.todos[index].xpos = payload.x-payload.w/2;
+            state.todos[index].ypos = payload.y-payload.h/2;
+        },
         // 軸の設定
         setAxises(state, payload){
             state.axises = state.axises.filter(function(v){
@@ -40,5 +48,15 @@ export default new Vuex.Store({
             });
             state.axises.push(payload);
         }
-    }
+    },
+    plugins: [
+        createPersistedState({
+            key: 'todo_graph',
+            storage: {
+              getItem: key => ls.get(key),
+              setItem: (key, value) => ls.set(key, value),
+              removeItem: key => ls.remove(key)
+            }
+        })
+    ]
 })
