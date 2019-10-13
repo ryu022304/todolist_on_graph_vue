@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VueIdb from './idb'
-
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -9,14 +8,12 @@ export default new Vuex.Store({
         todos: [],
         count: 0,
         axises: [],
-        hydrated: false
     },
     getters: {
         // TODOリスト一覧の取得
         getTodos(state){ return state.todos },
         // 軸の取得
-        getAxises(state){ return state.axises },
-        hydrated: state => state.hydrated
+        getAxises(state){ return state.axises }
     },
     mutations: {
         // TODOリストの追加
@@ -36,16 +33,19 @@ export default new Vuex.Store({
                 return v.id != payload.id
             });
         },
+        // TODOリストの更新
+        updateTodo(state, payload){
+            const index = state.todos.findIndex(item=>item.id==payload.id);
+            state.todos[index].xpos = payload.x-payload.w/2;
+            state.todos[index].ypos = payload.y-payload.h/2;
+        },
         // 軸の設定
         setAxises(state, payload){
             state.axises = state.axises.filter(function(v){
                 return v.label != payload.label
             });
             state.axises.push(payload);
-        },
-        'DELETE_INDEXED_DB'(){}
+        }
     },
-    modules: VueIdb.modules,
-    plugins: [ VueIdb.plugin ],
-    strict: true
+    plugins: [createPersistedState()]
 })

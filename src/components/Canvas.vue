@@ -21,6 +21,7 @@
                 </v-layer>
                 <v-layer ref="todoLayer" v-for="todo in todoList" v-bind:key="todo.id">
                     <v-text :config="{
+                        id: todo.id,
                         text: todo.title,
                         x: todo.xpos+width/2,
                         y: todo.ypos+height/2,
@@ -84,6 +85,14 @@ export default {
             // 再描画
             const stage = this.$refs.stage.getNode();
             stage.draw();
+            // LocalStorageに状態を保存
+            this.$store.commit('updateTodo', {
+                id: e.target.attrs.id,
+                x: e.target.attrs.x,
+                y: e.target.attrs.y,
+                w: this.width,
+                h: this.height
+            });
         }
     }
 };
