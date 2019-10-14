@@ -86,7 +86,7 @@ export default {
             const stage = this.$refs.stage.getNode();
             stage.draw();
             // LocalStorageに状態を保存
-            this.$store.commit('updateTodo', {
+            this.$store.commit('updateTodoPos', {
                 id: e.target.attrs.id,
                 x: e.target.attrs.x,
                 y: e.target.attrs.y,

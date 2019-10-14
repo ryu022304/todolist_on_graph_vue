@@ -25,7 +25,8 @@ export default new Vuex.Store({
                 id: state.count, 
                 title: payload.title,
                 xpos: 0,
-                ypos: 0
+                ypos: 0,
+                isEditing: false
             });
             state.count++;
         },
@@ -35,11 +36,16 @@ export default new Vuex.Store({
                 return v.id != payload.id
             });
         },
-        // TODOリストの更新
-        updateTodo(state, payload){
+        // TODOリストの座標更新
+        updateTodoPos(state, payload){
             const index = state.todos.findIndex(item=>item.id==payload.id);
             state.todos[index].xpos = payload.x-payload.w/2;
             state.todos[index].ypos = payload.y-payload.h/2;
+        },
+        // TODOリストの編集状態更新
+        updateTodoIsEditing(state, payload){
+            const index = state.todos.findIndex(item=>item.id==payload.id);
+            state.todos[index].isEditing = payload.isEditing;
         },
         // 軸の設定
         setAxises(state, payload){
