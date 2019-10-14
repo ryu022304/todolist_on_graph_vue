@@ -21,10 +21,22 @@
             <div class="list">
             <b-list-group v-for="todo in todoList" v-bind:key="todo.id">
                 <b-list-group-item>
-                    {{ todo.title }}
-                    <div class="icons">
-                        <font-awesome-icon icon="check" size="lg" @click="remove(todo.id)" />
-                        <font-awesome-icon icon="edit" size="lg" @click="edit(todo.id)" />
+                    <div class="todocard" v-show="!todo.isEditing">
+                        {{ todo.title }}
+                        <div class="icons">
+                            <font-awesome-icon icon="check" size="lg" @click="remove(todo.id)" />
+                            <font-awesome-icon icon="edit" size="lg" @click="edit(todo.id, todo.isEditing)" />
+                        </div>
+                    </div>
+                    <div class="editcard" v-show="todo.isEditing">
+                        <b-row class="my-1">
+                            <b-col sm="10">
+                                <b-form-input v-model="todo.title" :placeholder="todo.title" ></b-form-input>
+                            </b-col>
+                            <b-col sm="2">
+                                <font-awesome-icon class="icons edit" icon="edit" size="lg" @click="edit(todo.id,todo.isEditing)" />
+                            </b-col>
+                        </b-row>
                     </div>
                 </b-list-group-item>
             </b-list-group>
@@ -62,9 +74,11 @@ export default {
             });
         },
         // TODOリストの編集
-        edit: function(listId){
-            // TODO: 編集する処理
-            console.log(listId);
+        edit: function(listId, editState){
+            this.$store.commit('updateTodoIsEditing', {
+                id: listId,
+                isEditing: !editState
+            });
         },
         // 軸名の追加呼び出し
         addAxisLavel(label){
@@ -119,5 +133,8 @@ export default {
 }
 .list {
     margin: 5px;
+}
+.edit {
+    color: yellowgreen;
 }
 </style>
