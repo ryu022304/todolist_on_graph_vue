@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <Header />
-    <div class="grid">
-        <div class="grid-cell twice">
-            <Canvas />
-        </div>
-        <div class="grid-cell">
+    <b-container fluid class="bv-example-row">
+        <b-row>
+          <b-col cols="4" md="4" sm="12">
             <List />
-        </div>
-    </div>
+          </b-col>
+          <b-col cols="8" md="8" sm="12">
+            <Canvas />
+          </b-col>
+        </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -26,23 +28,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.grid {
-  margin: 0;
-  padding: 0;
-	display: -webkit-flex;
-  display: flex;
-  list-style: none;
-}
-.grid-cell {
-  margin: 5px;
-  padding: 0px;
-  border-radius: 5px;
-  line-height: 1;
-  flex: 1;
-}
-.twice {
-  flex: 2;
-}
-</style>
