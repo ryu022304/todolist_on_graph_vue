@@ -1,6 +1,6 @@
 <template>
     <b-card-group deck>
-        <b-card header="Graph Area" id="graph">
+        <b-card header="Graph Area">
             <v-stage :config="{
                 width: this.width,
                 height: this.height
@@ -8,6 +8,8 @@
                     ref="stage"
                     @dragstart="handleDragstart"
                     @dragend="handleDragend"
+                    class="graph"
+                    id="graph"
             >
                 <v-layer ref="axisLayer">
                     <v-shape :config="{
@@ -71,8 +73,8 @@ export default {
         }
     },
     created() {
-        this.width = 800
-        this.height = 400
+        this.width = 800;
+        this.height = 400;
     },
     computed: {
         // TODO一覧の取得呼び出し
@@ -106,15 +108,20 @@ export default {
         },
         // ウィンドウサイズの取得
         handleResize(){
-            //console.log(window.innerHeight);
-            //console.log(window.innerWidth);
-            //this.height = window.innerHeight;
-            //this.width = window.innerWidth;
-            console.log(this.height);
+            this.height = document.getElementById('graph').clientHeight;
+            this.width = document.getElementById('graph').clientWidth;
         }
     },
-    mounted: function(){
+    mounted() {
+        this.height = document.getElementById('graph').clientHeight;
+        this.width = document.getElementById('graph').clientWidth;
         window.addEventListener('resize', this.handleResize);
     }
 };
 </script>
+
+<style scoped>
+graph {
+    object-fit: fill;
+}
+</style>
