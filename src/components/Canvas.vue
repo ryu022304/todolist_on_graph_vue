@@ -1,13 +1,29 @@
 <template>
     <b-card-group deck>
-        <b-card header="Graph Area" id="graph">
-            <v-stage :config="configKonva"
+        <b-card header="Graph Area">
+            <v-stage :config="{
+                width: this.width,
+                height: this.height
+            }"
                     ref="stage"
                     @dragstart="handleDragstart"
                     @dragend="handleDragend"
+                    class="graph"
+                    id="graph"
             >
                 <v-layer ref="axisLayer">
-                    <v-shape :config="configAxisLine"></v-shape>
+                    <v-shape :config="{
+                        sceneFunc: function(context) {
+                            context.beginPath();
+                            // 横軸
+                            context.moveTo(width*0.05, height/2);
+                            context.lineTo(width*0.95, height/2);
+                            // 縦軸
+                            context.moveTo(width/2, height*0.05);
+                            context.lineTo(width/2, height*0.95);
+                            context.stroke();
+                        }
+                    }"></v-shape>
                 </v-layer>
                 <v-layer ref="axisLabelLayer" v-for="axis in axisList" v-bind:key="axis.label">
                     <v-text :config="{
@@ -37,32 +53,28 @@
 
 <script>
 
-//const width = document.getElementById('graph').clientWidth * 0.9;
-//const height = document.getElementById('graph').clientHeight * 0.9;
-const width = 800;
-const height = 400;
 export default {
     data() {
         return {
-            width: width,
-            height: height,
-            configKonva: {
-                width: width,
-                height: height
-            },
+            width: 0,
+            height: 0,
             configAxisLine: {
                 sceneFunc: function(context) {
                     context.beginPath();
                     // 横軸
-                    context.moveTo(width*0.1, height/2);
-                    context.lineTo(width*0.9, height/2);
+                    context.moveTo(this.width*0.05, this.height/2);
+                    context.lineTo(this.width*0.95, this.height/2);
                     // 縦軸
-                    context.moveTo(width/2, height*0.1);
-                    context.lineTo(width/2, height*0.9);
+                    context.moveTo(this.width/2, this.height*0.05);
+                    context.lineTo(this.width/2, this.height*0.95);
                     context.stroke();
                 }
             }
         }
+    },
+    created() {
+        this.width = 800;
+        this.height = 400;
     },
     computed: {
         // TODO一覧の取得呼び出し
@@ -93,7 +105,23 @@ export default {
                 w: this.width,
                 h: this.height
             });
+        },
+        // ウィンドウサイズの取得
+        handleResize(){
+            this.height = document.getElementById('graph').clientHeight;
+            this.width = document.getElementById('graph').clientWidth;
         }
+    },
+    mounted() {
+        this.height = document.getElementById('graph').clientHeight;
+        this.width = document.getElementById('graph').clientWidth;
+        window.addEventListener('resize', this.handleResize);
     }
 };
 </script>
+
+<style scoped>
+graph {
+    object-fit: fill;
+}
+</style>
