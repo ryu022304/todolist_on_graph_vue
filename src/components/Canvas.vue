@@ -25,8 +25,8 @@
                         }
                     }"></v-shape>
                 </v-layer>
-                <v-layer ref="axisLabelLayer" v-for="axis in axisList" v-bind:key="axis.label">
-                    <v-text :config="{
+                <v-layer ref="axisLabelLayer">
+                    <v-text v-for="axis in axisList" v-bind:key="axis.label" :config="{
                         text: axis.name,
                         x: axis.xOffset+width*axis.xPercent,
                         y: axis.yOffset+height*axis.yPercent,
@@ -35,8 +35,8 @@
                         fill: 'red'
                     }"></v-text>
                 </v-layer>
-                <v-layer ref="todoLayer" v-for="todo in todoList" v-bind:key="todo.id">
-                    <v-text :config="{
+                <v-layer ref="todoLayer">
+                    <v-text v-for="todo in todoList" v-bind:key="todo.id" :config="{
                         id: todo.id,
                         text: todo.title,
                         x: todo.xpos+width/2,
