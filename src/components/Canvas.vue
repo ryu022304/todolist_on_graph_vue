@@ -1,6 +1,16 @@
 <template>
     <b-card-group deck>
+        <b-modal id="my-modal"
+         size="xl"
+         @ok="downloadImage"
+        >
+            この画像をダウンロードしますか？
+            <div id="preview"></div>
+        </b-modal>
         <b-card header="Graph Area">
+            <b-button variant="info" v-b-modal="'my-modal'">
+                <font-awesome-icon icon="camera" size="lg" @click="takeScreenShot" />
+            </b-button>
             <v-stage :config="{
                 width: this.width,
                 height: this.height
@@ -52,6 +62,7 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas';
 
 export default {
     data() {
@@ -110,6 +121,28 @@ export default {
         handleResize(){
             this.height = document.getElementById('graph').clientHeight;
             this.width = document.getElementById('graph').clientWidth;
+        },
+        // canvasのスクリーンショット
+        takeScreenShot(){
+            let graph = document.getElementById('graph');
+            html2canvas(graph,{
+                height: this.height,
+                width: this.width
+            }).then(function(canvas){
+                canvas.id = "preview-canvas"
+                document.getElementById('preview').appendChild(canvas);
+            }).catch(function(err){
+                alert(err);
+            });
+        },
+        // 画像のダウンロード
+        downloadImage(){
+            let dataURL = document.getElementById("preview-canvas").toDataURL('image/png');
+            let link = document.createElement("a");
+            link.href = dataURL;
+            link.download = "test.png";
+            console.log(dataURL);
+            link.click();
         }
     },
     mounted() {
