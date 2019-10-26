@@ -2,10 +2,24 @@
     <b-card-group deck>
         <b-modal id="my-modal"
          size="xl"
-         @ok="downloadImage"
         >
-            この画像をダウンロードしますか？
-            <div id="preview"></div>
+            <template v-slot:modal-title>
+                Screenshot Preview
+            </template>
+            この画像をダウンロードしますか？ <br>
+            ※画像が表示されない場合はRetryを押してください
+            <div id="preview" class="text-center"></div>
+            <template v-slot:modal-footer>
+                <b-button class="float-right">
+                    Cancel
+                </b-button>
+                <b-button variant="success" class="float-right" @click="takeScreenShot">
+                    Retry
+                </b-button>
+                <b-button variant="primary" class="float-right" @click="downloadImage">
+                    OK
+                </b-button>
+            </template>
         </b-modal>
         <b-card header="Graph Area">
             <b-button variant="info" v-b-modal="'my-modal'">
@@ -122,11 +136,12 @@ export default {
             this.height = document.getElementById('graph').clientHeight;
             this.width = document.getElementById('graph').clientWidth;
         },
-        // canvasのスクリーンショット
+        // canvasのスクリーンショットプレビュー
         takeScreenShot(){
             let graph = document.getElementById('graph');
+            if (document.getElementById('preview-canvas') != null){return;}
             html2canvas(graph,{
-                height: this.height,
+                height: this.height+100, // 下が見切れてしまうことがあるので対応
                 width: this.width
             }).then(function(canvas){
                 canvas.id = "preview-canvas"
@@ -140,8 +155,7 @@ export default {
             let dataURL = document.getElementById("preview-canvas").toDataURL('image/png');
             let link = document.createElement("a");
             link.href = dataURL;
-            link.download = "test.png";
-            console.log(dataURL);
+            link.download = "todo_graph.png";
             link.click();
         }
     },
