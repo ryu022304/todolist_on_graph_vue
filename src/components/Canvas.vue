@@ -11,12 +11,6 @@
             ※画像が表示されない場合はRetryを押してください
             <div id="preview" class="text-center"></div>
             <template v-slot:modal-footer="{cancel}">
-                <b-input-group prepend="-X" append="+X" class="mt-3">
-                    <b-form-input type="range" min="-100" max="100" v-model="xScroll" @change="redrawPreview"></b-form-input>
-                </b-input-group>
-                <b-input-group prepend="-Y" append="+Y" class="mt-3">
-                    <b-form-input type="range" min="-100" max="100" v-model="yScroll" @change="redrawPreview"></b-form-input>
-                </b-input-group>
                 <b-button variant="secondary" class="float-right" @click="cancel()">
                     Cancel
                 </b-button>
@@ -191,24 +185,6 @@ export default {
             });
             this.xScroll = 0;
             this.yScroll = 0;
-        },
-        // プレビューのリアルタイム修正
-        redrawPreview: function(){
-            let graph = document.getElementById('graph');
-            if (document.getElementById('preview-canvas') != null){
-                html2canvas(graph,{
-                    height: this.height,
-                    width: this.width,
-                    scrollY: this.yScroll,
-                    scrollX: this.xScroll
-                }).then(function(canvas){
-                    canvas.id = "preview-canvas"
-                    document.getElementById('preview-canvas').remove();
-                    document.getElementById('preview').appendChild(canvas);
-                }).catch(function(err){
-                    alert(err);
-                });
-            }
         },
         // 画像のダウンロード
         downloadImage(){
