@@ -12,6 +12,7 @@
           </b-col>
         </b-row>
     </b-container>
+    <Footer />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import Description from './components/Description'
 import Header from './components/Header'
 import List from './components/List'
 import Canvas from './components/Canvas'
+import Footer from './components/Footer'
 
 export default {
   name: 'app',
@@ -27,7 +29,8 @@ export default {
     Description,
     Header,
     List,
-    Canvas
+    Canvas,
+    Footer
   }
 }
 </script>
