@@ -28,6 +28,7 @@
                 </b-button>
             </template>
         </b-modal>
+        <b-modal id="alert-modal" @ok="refreshAll">軸名、TODO内容を全て削除しますか？</b-modal>
         <b-card header="Graph Area">
             <b-button variant="info" v-b-modal="'preview-modal'">
                 <font-awesome-icon icon="download" size="lg" @click="takeScreenShot" />
@@ -40,6 +41,9 @@
                 <font-awesome-icon :icon="['fab', 'facebook-f']" size="lg" @click="postFacebookWithImage" />
             </b-button>
             -->
+            <b-button variant="info" v-b-modal="'alert-modal'">
+                <font-awesome-icon icon="trash-restore" size="lg" />
+            </b-button>
             <v-stage :config="{
                 width: this.width,
                 height: this.height
@@ -229,6 +233,10 @@ export default {
             console.log('clicked facebook button');
         }
         */
+       // Local Storageの内容を全てリフレッシュする
+       refreshAll(){
+           this.$store.commit('removeAll');
+       }
     },
     mounted() {
         this.height = document.getElementById('graph').clientHeight;
