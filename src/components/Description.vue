@@ -20,7 +20,8 @@
     data() {
       return {
         text:
-`TODO List: 
+`How to use: 本サイトの使い方の説明。ヘッダー部分をクリックすると非表示に出来ます。
+TODO List: 
   TODO: テキストを入力して、SubmitをクリックするとGraph Area中央にテキストが表示されます。
   Axis: テキストを入力して、設定したい軸名方向のボタンをクリックするとテキストが追加されます。
   Card: 
