@@ -53,6 +53,12 @@ export default new Vuex.Store({
                 return v.label != payload.label
             });
             state.axises.push(payload);
+        },
+        // 設定を全てクリアする
+        removeAll(state){
+            state.todos = [];
+            state.count = 0;
+            state.axises = [];
         }
     },
     plugins: [
