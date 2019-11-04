@@ -160,6 +160,7 @@ export default {
         takeScreenShot(){
             let graph = document.getElementById('graph');
             html2canvas(graph,{
+                logging: false,
                 height: this.height,
                 width: this.width
             }).then(function(canvas){
