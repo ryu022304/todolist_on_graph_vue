@@ -18,8 +18,7 @@
                 </b-input-group-append>
             </b-input-group>
             </div>
-            <div class="list">
-            <b-list-group v-for="todo in todoList" v-bind:key="todo.id">
+            <b-list-group v-for="todo in todoList" v-bind:key="todo.id" class="list">
                 <b-list-group-item>
                     <div class="todocard" v-show="!todo.isEditing">
                         {{ todo.title }}
@@ -40,7 +39,6 @@
                     </div>
                 </b-list-group-item>
             </b-list-group>
-            </div>
         </b-card>
     </b-card-group>
 </template>
@@ -131,10 +129,12 @@ export default {
 .input {
     margin: 5px;
 }
-.list {
-    margin: 5px;
-}
 .edit {
     color: yellowgreen;
+}
+.list {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 </style>
