@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/ryu022304/todolist_on_graph_vue#readme",
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap-vue": "^2.4.0",
     "css-loader": "^3.4.2",
     "html2canvas": "^1.0.0-rc.5",
